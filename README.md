@@ -9,12 +9,13 @@ INSTALLING REQUIRED GEMS
 
 MAKING THE SCRIPT WORK
 ----------------------
-- [x] Type the following commands on a terminal : `cd ~/; git clone git@github.com:athityakumar/data.git`
-- [x] Now type this in the terminal : `gedit ~/.bashrc`
-- [x] The shell-script found in this repository as `CopyThis.sh` must be copy-pasted into the `.bashrc` file.
-- [x] Now, open a new terminal. Have the auto-completion files of `Data` been initialised? Great!
-- [x] Type `D` and press `Tab`. Yay, it auto-completes to `Data`!  
-- [x] Continue further by reading through the set of supported auto-complete commands.
+<br> (1) Type the following commands on a terminal : `cd ~/; git clone git@github.com:athityakumar/data.git`
+<br> (2) Install the required gems, as mentioned above. Tested on ruby 2.3.1p112 (2016-04-26 revision 54768)  version.
+<br> (3) Now type this in the terminal : `gedit ~/.bashrc`
+<br> (4) The shell-script found in this repository as `CopyThis.sh` must be copy-pasted into the `.bashrc` file.
+<br> (5) Now, open a new terminal. Have the auto-completion files of `Data` been initialised? Great!
+<br> (6) Type `D` and press `Tab`. Yay, it auto-completes to `Data`!  
+<br> (7) Continue further by reading through the set of supported auto-complete commands.
 
 SET OF SUPPORTED COMMANDS
 -------------------------
@@ -30,6 +31,15 @@ SET OF SUPPORTED COMMANDS
 - [x] `Data Existing Tablename Data_Show` : Shows the full tabular form of data stored in table 'Tablename'.
 - [x] `Data Delete Tablename` : Deletes table 'Tablename' after asking for confirmation.
 
+EFFECTIVE USE OF SUCH TERMINAL TABLES
+-------------------------------------
+
+- [x] `Bookmark` table can be used for offline local storage of favourite websites (without being tracked by browser)
+- [x] `Birthday` table can be used for storing birthdays of your friends. 
+- [x] `Wallet-History` table can be used for keeping track of expenses with description and in-built `DATE` column. 
+- [x] `Monday` / `Tuesday` / ...  tables can be used as a Timetable list for each of the days. (Helpful for students) 
+- [x] `Contact` table can be used for storing contact details like `Email ID` , `Contact No.` , etc. of your friends. 
+
 IMPOROVEMENTS
 -------------
 
@@ -39,6 +49,7 @@ IMPOROVEMENTS
 - [ ] `Data Unsecure Tablename` : Unsecures the data available in the table 'Tablename'.
 - [ ] `Data Export Tablename` : Exports the data available in the table 'Tablename' to a CSV file.
 - [ ] Use `awesome_print` gem to colorify the response messages based on success / failure.
+- [ ] Include the above mentioned terminal-tables as inbuilt tables.
 
 CONTRIBUTION
 ------------
