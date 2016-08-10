@@ -4,14 +4,14 @@ A terminal data-controller with dynamic auto-complete features, that is built wi
 
 INSTALLING REQUIRED GEMS
 ------------------------
-<pre> `gem install json` </pre>
-<pre> `gem install terminal-table` </pre>
+<br> (1) `gem install json` 
+<br> (2) `gem install terminal-table`
 
 MAKING THE SCRIPT WORK
 ----------------------
 - [x] Type the following commands on a terminal : `cd ~/; git clone git@github.com:athityakumar/data.git`
 - [x] Now type this in the terminal : `gedit ~/.bashrc`
-- [x] Copy paste this into the gedit :  
+- [x] The below schell-script can also be found in this repository as `CopyThis.sh`. Copy paste this into the `.bashrc` file :  
   <pre>function Data 
   <br>{ 
   <br>cd ~/data; 
