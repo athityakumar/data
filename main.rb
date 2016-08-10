@@ -23,14 +23,19 @@ def get_files
 end
 
 def pre_process
+
+  response = (!(Dir.exists? "info") && !(File.exists? "Data"))
   unless Dir.exists? "info"
     Dir.mkdir("info")
     #system "sudo chown root info/"
     #system "sudo chmod +700 info/"
   end
   unless File.exists? "Data"
-    autocomplete() 
+    autocomplete()
+    puts "Initialised auto-completion" 
   end
+  return response
+
 end
 
 def autocomplete
@@ -43,7 +48,6 @@ def autocomplete
 
   File.delete("Data") if File.exists? "Data"
   File.open("Data", 'a') { |f| f.write(autocomplete) }
-
 
 end
 
@@ -335,7 +339,7 @@ end
 
 def process mode , file , func
 
-  pre_process()
+  response = pre_process()
   if mode == "New"
     add(file)
   elsif mode == "Delete"
@@ -343,7 +347,11 @@ def process mode , file , func
   elsif mode == "Existing"
     existing(file,func)
   else
-    puts "Sorry, can't recognize this command."
+    if response
+      puts "Data has been successfully initialised."
+    else
+      puts "Could not recognise the command."
+    end
   end
    
 end
