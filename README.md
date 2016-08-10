@@ -19,15 +19,16 @@ MAKING THE SCRIPT WORK
   <br>cd ~/;
   <br>. ~/data/Data; 
   <br>}
-  <br>if test -f "/data/Data"; 
-  <br>then
+  <br>if test -f "/home/`whoami`/data/Data"; then
   <br>    . ~/data/Data;
   <br>else
-  <br>    cd ~/data;
-  <br>    ruby main.rb Init;
-  <br>    clear;
-  <br>    cd ~/;
-  <br>    . ~/data/Data
+  <br>    if test -f "/home/`whoami`/data/main.rb"; then
+  <br>        cd ~/data;
+  <br>        ruby main.rb Init;
+  <br>        clear;
+  <br>        cd ~/;
+  <br>        . ~/data/Data
+  <br>    fi    
   <br>fi
   </pre>
 - [x] Now, open a new terminal. Have the auto-completion files of `Data` been initialised? Great!

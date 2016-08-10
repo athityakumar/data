@@ -337,8 +337,8 @@ end
 
 def process mode , file , func
 
-  response = pre_process() ? true : false
   puts ""
+  response = pre_process() ? true : false
   if mode == "New"
     add(file)
   elsif mode == "Delete"

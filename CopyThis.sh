@@ -12,22 +12,24 @@ cd ~/;
 
 }
 
-if test -f "/data/Data"; 
-
-then
+if test -f "/home/`whoami`/data/Data"; then
 
     . ~/data/Data;
 
 else
 
-    cd ~/data;
+    if test -f "/home/`whoami`/data/main.rb"; then
 
-    ruby main.rb Init;
+        cd ~/data;
 
-    clear;
+        ruby main.rb Init;
 
-    cd ~/;
+        clear;
 
-    . ~/data/Data
+        cd ~/;
+
+        . ~/data/Data
+
+    fi    
 
 fi
