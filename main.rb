@@ -313,7 +313,6 @@ end
 
 def existing file , func 
 
-  puts ""
   if func == "Data_Add"
     existing_add(file)
   elsif func == "Data_Edit"
@@ -333,13 +332,13 @@ def existing file , func
   else
     puts "Couldn't recognise the functionality type."
   end
-  puts ""
 
 end
 
 def process mode , file , func
 
   response = pre_process()
+  puts ""
   if mode == "New"
     add(file)
   elsif mode == "Delete"
@@ -353,6 +352,7 @@ def process mode , file , func
       puts "Could not recognise the command."
     end
   end
+  puts ""
    
 end
 
