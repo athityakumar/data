@@ -24,8 +24,6 @@ else
 
         ruby main.rb Init;
 
-        clear;
-
         cd ~/;
 
         . ~/data/Data
