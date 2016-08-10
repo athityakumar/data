@@ -25,6 +25,7 @@ MAKING THE SCRIPT WORK
   <br>else
   <br>    cd ~/data;
   <br>    ruby main.rb Init;
+  <br>    clear;
   <br>    cd ~/;
   <br>    . ~/data/Data
   <br>fi

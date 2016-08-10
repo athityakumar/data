@@ -32,7 +32,7 @@ def pre_process
   end
   unless File.exists? "Data"
     autocomplete()
-    puts "Initialised auto-completion" 
+    puts "$DATA@bot : Initialised auto-completion" 
   end
   return response
 
@@ -53,14 +53,14 @@ end
 
 def add file
   if get_files().include? file
-    puts "#{file} already exists. Use keyword Existing, instead of New."
+    puts "$DATA@bot : #{file} already exists. Use keyword Existing, instead of New."
   else
     info = []
     info[0] , info[1] = {} , []
-    puts "How many columns to store data?"    
+    puts "$DATA@bot : How many columns to store data?"    
     info[0]["nColumns"] , info[0]["Columns"] = gets.chomp.to_i , []
     for i in (0..info[0]["nColumns"]-1)
-      puts "Enter title for Column ##{i+1} : "
+      puts "$DATA@bot : Enter title for Column ##{i+1} : "
       col = gets.chomp
       info[0]["Columns"].push(col)
     end 
@@ -68,7 +68,7 @@ def add file
     File.open("#{file}.json", "a") { |f| f.write(JSON.generate(info)) }
     Dir.chdir("..")
     autocomplete()
-    puts "Successfully created #{file}."
+    puts "$DATA@bot : Successfully created #{file}."
   end
 end
 
@@ -76,22 +76,22 @@ def delete file
   if get_files().include? file
     choice  = ""
     while !(["Y","N"].include? choice)
-      puts "Are you sure you want to delete #{file}? (Y/N) : "
+      puts "$DATA@bot : Are you sure you want to delete #{file}? (Y/N) : "
       choice = gets.chomp.upcase
       if choice == "Y"
         Dir.chdir("info")
         File.delete("#{file}.json")
         Dir.chdir("..") 
         autocomplete()
-        puts "Succesfully deleted #{file}."
+        puts "$DATA@bot : Succesfully deleted #{file}."
       elsif choice == "N"
-        puts "Successfully cancelled deletion of #{file}."
+        puts "$DATA@bot : Successfully cancelled deletion of #{file}."
       else
-        puts "Couldn't recognise choice given for Y/N."
+        puts "$DATA@bot : Couldn't recognise choice given for Y/N."
       end
     end
   else
-    puts "#{file} doesn't exist."
+    puts "$DATA@bot : #{file} doesn't exist."
   end
 end
 
@@ -104,16 +104,16 @@ def existing_add file
     data["ID"] = info[1].count == 0 ? 1 : (info[1].last["ID"] + 1)
     data["Date"] = Date.today.strftime("%d/%m/%y")
     for i in (0..info[0]["nColumns"]-1)
-      puts "Input the data for #{info[0]["Columns"][i]} : "
+      puts "$DATA@bot : Input the data for #{info[0]["Columns"][i]} : "
       data["#{info[0]["Columns"][i]}"] = gets.chomp
     end
     info[1].push(data)
     File.delete("#{file}.json")
     File.open("#{file}.json", "a") { |f| f.write(JSON.generate(info)) }
     Dir.chdir("..")
-    puts "Succesfully added data."
+    puts "$DATA@bot : Succesfully added data."
   else
-    puts "File doesn't exist with name #{file}."
+    puts "$DATA@bot : File doesn't exist with name #{file}."
   end
 
 end
@@ -123,30 +123,30 @@ def existing_edit file
   if get_files().include? file
     Dir.chdir("info")
     info = JSON.parse(File.read("#{file}.json"))
-    puts "Enter ID of data to edit : "
+    puts "$DATA@bot : Enter ID of data to edit : "
     id = gets.chomp.to_i
     index = info[1].find_index { |row| row["ID"] == id }
     if index.nil? 
-      puts "Data with such an ID doesn't exist."
+      puts "$DATA@bot : Data with such an ID doesn't exist."
     else
       info[1][index]["Date"] = Date.today.strftime("%d/%m/%y")
       for i in (0..info[0]["nColumns"]-1)
         col = info[0]["Columns"][i]
-        puts "Edit the data for #{col} from #{info[1][index][col]} to : "
+        puts "$DATA@bot : Edit the data for #{col} from #{info[1][index][col]} to : "
         get = gets.chomp
         if get.length == 0
-          puts "No edit made - data (#{info[1][index][col]}) remains unchanged. "
+          puts "$DATA@bot : No edit made - data (#{info[1][index][col]}) remains unchanged. "
         else
           info[1][index][col] = get
         end
       end
       File.delete("#{file}.json")
       File.open("#{file}.json", "a") { |f| f.write(JSON.generate(info)) }
-      puts "Succesfully edited data."
+      puts "$DATA@bot : Succesfully edited data."
     end
     Dir.chdir("..")  
   else
-    puts "File doesn't exist with name #{file}."
+    puts "$DATA@bot : File doesn't exist with name #{file}."
   end
 
 end
@@ -156,32 +156,32 @@ def existing_delete file
   if get_files().include? file
     Dir.chdir("info")
     info = JSON.parse(File.read("#{file}.json"))
-    puts "Enter ID of data to delete : "
+    puts "$DATA@bot : Enter ID of data to delete : "
     id = gets.chomp.to_i
     index = info[1].find_index { |row| row["ID"] == id }
     if index.nil? 
-      puts "Data with such an ID doesn't exist."
+      puts "$DATA@bot : Data with such an ID doesn't exist."
     else
       choice  = ""
       while !(["Y","N"].include? choice)
-        puts "Are you sure you want to delete data with ID ##{id}? (Y/N) : "
+        puts "$DATA@bot : Are you sure you want to delete data with ID ##{id}? (Y/N) : "
         choice = gets.chomp.upcase
         if choice == "Y"
           data = info[1][index]
           info[1].delete(data)
           File.delete("#{file}.json")
           File.open("#{file}.json", "a") { |f| f.write(JSON.generate(info)) }
-          puts "Succesfully deleted data with ID ##{id}."
+          puts "$DATA@bot : Succesfully deleted data with ID ##{id}."
         elsif choice == "N"
-          puts "Successfully cancelled deletion of data with ID ##{id}."
+          puts "$DATA@bot : Successfully cancelled deletion of data with ID ##{id}."
         else
-          puts "Couldn't recognise choice given for Y/N."
+          puts "$DATA@bot : Couldn't recognise choice given for Y/N."
         end
       end
     end
     Dir.chdir("..")  
   else
-    puts "File doesn't exist with name #{file}."
+    puts "$DATA@bot : File doesn't exist with name #{file}."
   end
 
 end
@@ -202,7 +202,7 @@ def existing_show file
     table = Terminal::Table.new :title => "#{file.upcase} - Found #{info[1].count} objects", :headings => heading_list, :rows => row_list, :style => { :alignment => :center, :border_x => "=", :border_i => "="}
     puts table     
   else
-    puts "File doesn't exist with name #{file}."
+    puts "$DATA@bot : File doesn't exist with name #{file}."
   end
 
 end
@@ -212,13 +212,13 @@ def existing_column_add file
   if get_files().include? file
     Dir.chdir("info")
     info = JSON.parse(File.read("#{file}.json"))
-    puts "How many columns to add to store data?"    
+    puts "$DATA@bot : How many columns to add to store data?"    
     nColumns = gets.chomp.to_i 
     info[0]["nColumns"] = info[0]["nColumns"] + nColumns
     for i in (0..nColumns-1)
-      puts "Enter title for new Column ##{i+1} : "
+      puts "$DATA@bot : Enter title for new Column ##{i+1} : "
       col = gets.chomp
-      puts "Enter default value for Column #{col} : "
+      puts "$DATA@bot : Enter default value for Column #{col} : "
       default = gets.chomp
       info[0]["Columns"].push(col)
       for j in (0..info[1].count-1)
@@ -228,9 +228,9 @@ def existing_column_add file
     File.delete("#{file}.json")
     File.open("#{file}.json", "a") { |f| f.write(JSON.generate(info)) }
     Dir.chdir("..")
-    puts "Successfully created #{file}."
+    puts "$DATA@bot : Successfully created #{file}."
   else
-    puts "#{file} already exists. Use keyword Existing, instead of New."
+    puts "$DATA@bot : #{file} already exists. Use keyword Existing, instead of New."
   end
 
 end
@@ -240,20 +240,20 @@ def existing_column_edit file
   if get_files().include? file
     Dir.chdir("info")
     info = JSON.parse(File.read("#{file}.json"))
-    puts "Enter ID of column to edit : "
+    puts "$DATA@bot : Enter ID of column to edit : "
     id = gets.chomp.to_i
     if ((id <= info[0]["nColumns"]) && (id >= 1)) 
-      puts "Edit the column #{info[0]["Columns"][id-1]} to : "
+      puts "$DATA@bot : Edit the column #{info[0]["Columns"][id-1]} to : "
       info[0]["Columns"][id-1] = gets.chomp.to_s      
       File.delete("#{file}.json")
       File.open("#{file}.json", "a") { |f| f.write(JSON.generate(info)) }
-      puts "Succesfully edited column ##{id} to #{info[0]["Columns"][id-1]}."
+      puts "$DATA@bot : Succesfully edited column ##{id} to #{info[0]["Columns"][id-1]}."
     else
-      puts "Data with such an ID doesn't exist."      
+      puts "$DATA@bot : Data with such an ID doesn't exist."      
     end
     Dir.chdir("..")  
   else
-    puts "File doesn't exist with name #{file}."
+    puts "$DATA@bot : File doesn't exist with name #{file}."
   end  
 
 end
@@ -263,12 +263,12 @@ def existing_column_delete file
   if get_files().include? file
     Dir.chdir("info")
     info = JSON.parse(File.read("#{file}.json"))
-    puts "Enter ID of column to delete : "
+    puts "$DATA@bot : Enter ID of column to delete : "
     id = gets.chomp.to_i
     if ((id <= info[0]["nColumns"]) && (id >= 1)) 
       choice  = ""
       while !(["Y","N"].include? choice)
-        puts "Are you sure you want to delete the column \"#{info[0]["Columns"][id-1]}\" with ID ##{id}? (Y/N) : "
+        puts "$DATA@bot : Are you sure you want to delete the column \"#{info[0]["Columns"][id-1]}\" with ID ##{id}? (Y/N) : "
         choice = gets.chomp.upcase
         if choice == "Y"
           info[0]["nColumns"] = info[0]["nColumns"] - 1
@@ -276,19 +276,19 @@ def existing_column_delete file
           info[0]["Columns"].delete_at(id-1)
           File.delete("#{file}.json")
           File.open("#{file}.json", "a") { |f| f.write(JSON.generate(info)) }
-          puts "Succesfully deleted column with ID ##{id}."
+          puts "$DATA@bot : Succesfully deleted column with ID ##{id}."
         elsif choice == "N"
-          puts "Successfully cancelled deletion of column with ID ##{id}."
+          puts "$DATA@bot : Successfully cancelled deletion of column with ID ##{id}."
         else
-          puts "Couldn't recognise choice given for Y/N."
+          puts "$DATA@bot : Couldn't recognise choice given for Y/N."
         end
       end
     Dir.chdir("..")
     else
-      puts "Data with such an ID doesn't exist."      
+      puts "$DATA@bot : Data with such an ID doesn't exist."      
     end      
   else
-    puts "File doesn't exist with name #{file}."
+    puts "$DATA@bot : File doesn't exist with name #{file}."
   end
 
 end
@@ -306,7 +306,7 @@ def existing_column_show file
     table = Terminal::Table.new :title => "#{file.upcase} - Found #{info[0]["nColumns"]} columns", :headings => heading_list, :rows => row_list, :style => { :alignment => :center, :border_x => "=", :border_i => "="}
     puts table     
   else
-    puts "File doesn't exist with name #{file}."
+    puts "$DATA@bot : File doesn't exist with name #{file}."
   end
 
 end
@@ -330,14 +330,14 @@ def existing file , func
   elsif func == "Column_Show"
     existing_column_show(file)
   else
-    puts "Couldn't recognise the functionality type."
+    puts "$DATA@bot : Couldn't recognise the functionality type."
   end
 
 end
 
 def process mode , file , func
 
-  response = pre_process()
+  response = pre_process() ? true : false
   puts ""
   if mode == "New"
     add(file)
@@ -347,9 +347,9 @@ def process mode , file , func
     existing(file,func)
   else
     if response
-      puts "Data has been successfully initialised."
+      puts "$DATA@bot : Data has been successfully initialised."
     else
-      puts "Could not recognise the command."
+      puts "$DATA@bot : Could not recognise the command."
     end
   end
   puts ""
