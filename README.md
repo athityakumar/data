@@ -51,6 +51,12 @@ IMPOROVEMENTS
 - [ ] Use `awesome_print` gem to colorify the response messages based on success / failure.
 - [ ] Include the above mentioned terminal-tables as inbuilt tables.
 
+KWOC TO-DO LIST
+---------------
+- [ ] Add support for inbuilt datatype `Wallet` : `Data Wallet` : Take inputs money and transaction message. Also, print total balance left in wallet each time.
+- [ ] Add support for inbuilt datatype `Contacts` : `Data Contacts` : Take inputs name, email, contact number & other required details.from `Contacts` table.
+- [ ] Add support for inbuilt datatype `Birthday`: `Data Birthday` : Take inputs birthdate and name from `Contacts` table. Notify the user about those who have birthday on that particular day, each time the user opens the terminal.
+
 CONTRIBUTION
 ------------
 The work flow is the same as that of any other repository. 
